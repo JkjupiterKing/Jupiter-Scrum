@@ -1,0 +1,29 @@
+body {
+    background-color: #6482AD;
+}
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 28em;
+}
+
+.login-card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form {
+    margin-top: 1em;
+}
+#login-btn {
+    background-color: #180161;
+    border-color: #180161;
+}
+#Register-link {
+    text-decoration: none;
+    color: black;
+}
+#Register-link:hover {
+    color: blue;
+}

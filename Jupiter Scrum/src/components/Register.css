@@ -1,0 +1,29 @@
+
+.register-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 28em;
+}
+
+.register-card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-form {
+    margin-top: 1em;
+}
+
+#register-btn {
+    background-color: #180161;
+    border-color: #180161;
+}
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
