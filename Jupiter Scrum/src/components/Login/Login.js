@@ -1,17 +1,49 @@
-
 import React, { useState } from 'react';
 import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './Login.css'; // Import the CSS file
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // Hook for navigation
 
-    const handleSubmit = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        // Add your login logic here
-        console.log('Login:', { email, password });
+
+        try {
+            // Use template literals for URL
+            const response = await fetch(`http://localhost:8080/users/login?email=${encodeURIComponent(email)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+
+                if (result && result.password) {
+                    // Decode Base64 encoded password hash
+                    const decodedPassword = atob(result.password); // Decode Base64 encoded password 
+
+                    // Compare decoded password hash with the entered password
+                    if (password === decodedPassword) {
+                        alert('Login successful!');
+                        navigate('/home'); // Redirect to the home page or dashboard
+                    } else {
+                        alert('Invalid credentials. Please try again.');
+                    }
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
+            } else {
+                alert('Invalid credentials. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
     };
 
     return (
@@ -21,7 +53,7 @@ const Login = () => {
                     <Card className="login-card">
                         <Card.Body>
                             <h2 className="text-center mb-4">Login</h2>
-                            <Form onSubmit={handleSubmit} className="login-form">
+                            <Form onSubmit={handleLogin} className="login-form">
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control

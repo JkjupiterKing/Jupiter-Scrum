@@ -1,0 +1,12 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+.home-card {
+    width: 100%;
+    max-width: 400px; /* Adjust width as needed */
+    margin: auto; /* Centers the card horizontally */
+}

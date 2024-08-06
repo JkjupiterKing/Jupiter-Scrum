@@ -1,12 +1,14 @@
 body {
     background-color: #6482AD;
+    margin: 0; /* Remove default body margin */
 }
+
 .login-container {
+    width: 180em;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 28em;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
 }
 
 .login-card {
@@ -16,14 +18,17 @@ body {
 .login-form {
     margin-top: 1em;
 }
+
 #login-btn {
     background-color: #180161;
     border-color: #180161;
 }
+
 #Register-link {
     text-decoration: none;
     color: black;
 }
+
 #Register-link:hover {
     color: blue;
 }
