@@ -1,34 +1,51 @@
-body {
-    background-color: #6482AD;
-    margin: 0; /* Remove default body margin */
+/* Login.css */
+#body {
+    background-color: #f0f2f5; /* Light background color for the whole page */
 }
 
 .login-container {
-    width: 180em;
-    height: 100vh;
+    position: fixed;
     display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height to center the form vertically */
+    margin-left: 28em;
 }
 
 .login-card {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: none;
+    padding: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the card */
+    background-color: #ffffff; /* White background for the card */
 }
 
 .login-form {
-    margin-top: 1em;
+    margin: 0;
+}
+
+h2 {
+    color: #333; /* Darker text for better readability */
 }
 
 #login-btn {
-    background-color: #180161;
-    border-color: #180161;
+    background-color: #180161; /* Primary color for the button */
+    border: none;
+}
+
+#login-btn:hover {
+    background-color: #180161; /* Darker shade for hover effect */
+}
+
+.text-center p {
+    margin-bottom: 0;
 }
 
 #Register-link {
-    text-decoration: none;
-    color: black;
+    color: black; /* Primary color for the link */
 }
 
 #Register-link:hover {
-    color: blue;
+    text-decoration: none;
+    color: #0056b3; /* Darker shade for hover effect */
 }

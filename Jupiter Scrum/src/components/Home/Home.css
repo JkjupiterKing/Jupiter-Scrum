@@ -1,8 +1,10 @@
 .home-container {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh; /* Full viewport height */
+    margin-left: 20em;
 }
 
 .home-card {
