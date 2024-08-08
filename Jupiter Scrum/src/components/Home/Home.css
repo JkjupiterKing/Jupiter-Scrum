@@ -1,14 +1,29 @@
 .home-container {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-    margin-left: 20em;
+    position: relative; /* Set relative positioning for the container */
 }
 
-.home-card {
-    width: 100%;
-    max-width: 400px; /* Adjust width as needed */
-    margin: auto; /* Centers the card horizontally */
+.icon-container {
+    position: absolute; /* Use absolute positioning */
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Center items vertically */
+    z-index: 10; /* Ensure icons stay on top of other content */
+}
+
+.welcome-section {
+    margin-top: 60px; /* Space to account for icon container */
+    text-align: center; /* Center the text horizontally */
+    padding: 20px; /* Add padding around the message */
+    background-color: #f8f9fa; /* Optional: background color for visibility */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+.welcome-heading {
+    margin-bottom: 10px; /* Space below the heading */
+}
+
+.welcome-text {
+    font-size: 1.2rem; /* Slightly larger font size for the paragraph */
 }

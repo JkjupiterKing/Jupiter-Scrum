@@ -23,12 +23,17 @@ const Login = () => {
             if (response.ok) {
                 const result = await response.json();
 
-                if (result && result.password) {
+                // Check if response includes user_id and password
+                if (result && result.password && result.user_id) {
                     // Decode Base64 encoded password hash
                     const decodedPassword = atob(result.password); // Decode Base64 encoded password 
 
                     // Compare decoded password hash with the entered password
                     if (password === decodedPassword) {
+                        // Store user_id in local storage
+                        localStorage.setItem('user_id', result.user_id);
+
+                        // Navigate to home page
                         navigate('/home'); 
                     } else {
                         alert('Invalid credentials. Please try again.');
@@ -46,49 +51,49 @@ const Login = () => {
     };
 
     return (
-            <main id='body'>
-                <Container className="login-container">
-                    <Row className="w-100">
-                        <Col md={6} lg={4}>
-                            <Card className="login-card">
-                                <Card.Body>
-                                    <h2 className="text-center mb-4">Login</h2>
-                                    <Form onSubmit={handleLogin} className="login-form">
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label>Email address</Form.Label>
-                                            <Form.Control
-                                                type="email"
-                                                placeholder="Enter email"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                required
-                                            />
-                                        </Form.Group>
+        <main id='body'>
+            <Container className="login-container">
+                <Row className="w-100">
+                    <Col md={6} lg={4}>
+                        <Card className="login-card">
+                            <Card.Body>
+                                <h2 className="text-center mb-4">Login</h2>
+                                <Form onSubmit={handleLogin} className="login-form">
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            placeholder="Enter email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                        />
+                                    </Form.Group>
 
-                                        <Form.Group controlId="formBasicPassword" className="mt-3">
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control
-                                                type="password"
-                                                placeholder="Password"
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                required
-                                            />
-                                        </Form.Group>
+                                    <Form.Group controlId="formBasicPassword" className="mt-3">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
+                                        />
+                                    </Form.Group>
 
-                                        <Button variant="primary" type="submit" className="mt-3 w-100" id="login-btn">
-                                            Login
-                                        </Button>
-                                    </Form>
-                                    <div className="text-center mt-3">
-                                        <p>Don't have an account? <Link to="/register" id='Register-link'>Register here</Link></p>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-            </main>
+                                    <Button variant="primary" type="submit" className="mt-3 w-100" id="login-btn">
+                                        Login
+                                    </Button>
+                                </Form>
+                                <div className="text-center mt-3">
+                                    <p>Don't have an account? <Link to="/register" id='Register-link'>Register here</Link></p>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        </main>
     );
 };
 

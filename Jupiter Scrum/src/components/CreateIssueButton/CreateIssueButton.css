@@ -1,0 +1,24 @@
+/* Add some general padding and spacing to the modal */
+.modal-body {
+    padding: 1.2rem; /* Adjust the padding inside the modal as needed */
+}
+
+/* Add a margin-bottom to form groups to provide spacing between fields */
+.form-group {
+    margin-bottom: 1.5rem; /* Adjust the space between fields */
+}
+
+/* Add a margin to the bottom of the modal for better spacing */
+.modal-footer {
+    margin-top: 1rem; /* Adjust space between form and buttons */
+}
+
+/* Optional: Style for form labels to increase readability */
+.form-label {
+    font-weight: 500;
+}
+
+/* Ensure that buttons have some space around them */
+button {
+    margin-top: 0.5rem; /* Add space above buttons if needed */
+}

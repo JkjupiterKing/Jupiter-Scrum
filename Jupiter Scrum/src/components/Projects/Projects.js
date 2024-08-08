@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Table, Dropdown, Form, Pagination } from 'react-bootstrap';
 import Sidenav from '../Sidenav/Sidenav';
 import { Search } from 'react-bootstrap-icons'; // Import Search icon from react-bootstrap-icons
@@ -6,25 +6,108 @@ import './Projects.css'; // Import your CSS file for specific styles
 
 const Projects = () => {
     const [showModal, setShowModal] = useState(false);
-    const [projects, setProjects] = useState([
-        // Example project data
-        { name: 'Project Alpha', key: 'ALPHA', type: 'Type A', lead: 'John Doe', url: 'http://example.com' },
-        { name: 'Project Beta', key: 'BETA', type: 'Type B', lead: 'Jane Doe', url: 'http://example.com' },
-        // Add more projects to test pagination
-    ]);
+    const [projects, setProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [projectsPerPage] = useState(5);
+    const [newProject, setNewProject] = useState({
+        name: '',
+        key: '',
+        type: '',
+        lead: '',
+        url: '',
+        userId: '' 
+    });
 
-    const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    useEffect(() => {
+        fetchProjects();
+    }, []);
 
-    const handleAddProject = () => {
-        // Logic to add a project
-        handleClose();
+    const fetchProjects = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/projects/all');
+            if (response.ok) {
+                const data = await response.json();
+                setProjects(data);
+            } else {
+                console.error('Failed to fetch projects');
+            }
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+        }
     };
 
-    const handleDeleteProject = () => {
-        // Logic to delete a project
+    const handleShow = () => setShowModal(true);
+    
+    const handleClose = () => {
+        setShowModal(false);
+        setNewProject({
+            name: '',
+            key: '',
+            type: '',
+            lead: '',
+            url: '',
+            userId: '' // Reset user_id as well
+        });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewProject(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleAddProject = async () => {
+        const userId = localStorage.getItem('user_id'); // Get user_id from local storage
+
+        if (!userId) {
+            console.error('User ID not found in local storage');
+            return;
+        }
+
+        const projectWithUserId = {
+            ...newProject,
+            userId: userId // Add user_id to the project object
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/projects/addProject', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(projectWithUserId)
+            });
+
+            if (response.ok) {
+                // Clear form and close modal
+                handleClose();
+                // Refresh the project list
+                fetchProjects();
+            } else {
+                console.error('Failed to add project');
+            }
+        } catch (error) {
+            console.error('Error adding project:', error);
+        }
+    };
+
+    const handleDeleteProject = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/projects/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                // Refresh the project list
+                fetchProjects();
+            } else {
+                console.error('Failed to delete project');
+            }
+        } catch (error) {
+            console.error('Error deleting project:', error);
+        }
     };
 
     // Pagination logic
@@ -75,8 +158,8 @@ const Projects = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentProjects.map((project, index) => (
-                                <tr key={index}>
+                            {currentProjects.map((project) => (
+                                <tr key={project.id}>
                                     <td>{project.name}</td>
                                     <td>{project.key}</td>
                                     <td>{project.type}</td>
@@ -93,7 +176,7 @@ const Projects = () => {
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
-                                                <Dropdown.Item onClick={handleDeleteProject} className="text-danger">
+                                                <Dropdown.Item onClick={() => handleDeleteProject(project.id)} className="text-danger">
                                                     Delete Project
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
@@ -136,23 +219,53 @@ const Projects = () => {
                             <Form>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter project name" />
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter project name"
+                                        name="name"
+                                        value={newProject.name}
+                                        onChange={handleInputChange}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Key</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter project key" />
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter project key"
+                                        name="key"
+                                        value={newProject.key}
+                                        onChange={handleInputChange}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Type</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter project type" />
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter project type"
+                                        name="type"
+                                        value={newProject.type}
+                                        onChange={handleInputChange}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Lead</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter project lead" />
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter project lead"
+                                        name="lead"
+                                        value={newProject.lead}
+                                        onChange={handleInputChange}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
                                     <Form.Label>Project URL</Form.Label>
-                                    <Form.Control type="url" placeholder="Enter project URL" />
+                                    <Form.Control
+                                        type="url"
+                                        placeholder="Enter project URL"
+                                        name="url"
+                                        value={newProject.url}
+                                        onChange={handleInputChange}
+                                    />
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
