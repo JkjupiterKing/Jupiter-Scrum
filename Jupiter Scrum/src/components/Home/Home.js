@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Bell } from 'react-bootstrap-icons';
 import Sidenav from '../Sidenav/Sidenav';
-import CreateIssueButton from '../CreateIssueButton/CreateIssueButton'; // Import the new component
+import CreateIssueButton from '../CreateIssueButton/CreateIssueButton'; 
 import "./Home.css";
 
 const Home = () => {

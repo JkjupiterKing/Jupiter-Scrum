@@ -1,6 +1,5 @@
 package com.Jupiter_Scrum.controller;
 
-
 import com.Jupiter_Scrum.model.Issue;
 import com.Jupiter_Scrum.repo.IssueRepo;
 import com.Jupiter_Scrum.service.IssueService;
@@ -20,7 +19,7 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Issue>> getAllIssues() {
         List<Issue> issues = issueService.getAllIssues();
         return new ResponseEntity<>(issues, HttpStatus.OK);
@@ -32,7 +31,7 @@ public class IssueController {
         return issue.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/addIssue")
     public ResponseEntity<Issue> createIssue(@RequestBody Issue issue) {
         Issue createdIssue = issueService.createIssue(issue);
         return new ResponseEntity<>(createdIssue, HttpStatus.CREATED);
@@ -42,6 +41,12 @@ public class IssueController {
     public ResponseEntity<Issue> updateIssue(@PathVariable Long id, @RequestBody Issue issue) {
         Optional<Issue> updatedIssue = issueService.updateIssue(id, issue);
         return updatedIssue.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/type/{issueType}")
+    public ResponseEntity<List<Issue>> getIssuesByType(@PathVariable String issueType) {
+        List<Issue> issues = issueService.getIssuesByType(issueType);
+        return new ResponseEntity<>(issues, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

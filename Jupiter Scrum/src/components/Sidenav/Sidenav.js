@@ -19,6 +19,7 @@ const Sidenav = () => {
     return (
         <div className="sidenav">
             <div className="sidenav-header">
+                <img src="/Images/scrum.png" alt="Jupiter Scrum Logo" className="sidenav-logo" />
                 <h1 className="sidenav-title">Jupiter Scrum</h1>
             </div>
             <Nav className="flex-column">

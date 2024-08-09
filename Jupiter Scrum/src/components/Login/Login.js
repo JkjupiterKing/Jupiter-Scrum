@@ -51,7 +51,7 @@ const Login = () => {
     };
 
     return (
-        <main id='body'>
+        <main>
             <Container className="login-container">
                 <Row className="w-100">
                     <Col md={6} lg={4}>

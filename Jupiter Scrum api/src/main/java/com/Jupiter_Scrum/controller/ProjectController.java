@@ -19,7 +19,7 @@ public class ProjectController {
     private ProjectRepo projectRepository;
 
     // Get all projects
-    @GetMapping
+    @GetMapping("/all")
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
@@ -32,7 +32,7 @@ public class ProjectController {
     }
 
     // Create a new project
-    @PostMapping
+    @PostMapping("/addProject")
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
         Project savedProject = projectRepository.save(project);
         return new ResponseEntity<>(savedProject, HttpStatus.CREATED);

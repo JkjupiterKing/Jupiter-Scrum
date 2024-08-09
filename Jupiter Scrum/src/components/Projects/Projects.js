@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Table, Dropdown, Form, Pagination } from 'react-bootstrap';
 import Sidenav from '../Sidenav/Sidenav';
-import { Search } from 'react-bootstrap-icons'; // Import Search icon from react-bootstrap-icons
-import './Projects.css'; // Import your CSS file for specific styles
+import { Search } from 'react-bootstrap-icons'; 
+import './Projects.css'; 
 
 const Projects = () => {
     const [showModal, setShowModal] = useState(false);

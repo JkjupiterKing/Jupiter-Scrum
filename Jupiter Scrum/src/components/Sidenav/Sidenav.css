@@ -71,3 +71,15 @@
     margin-right: 0.4em;
     margin-top: 0.1em;
 }
+
+.sidenav-logo {
+    width: 2em; /* Adjust the size of the logo as needed */
+    height: auto;
+    margin-right: 0.5em;
+}
+
+.sidenav-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0;
+}

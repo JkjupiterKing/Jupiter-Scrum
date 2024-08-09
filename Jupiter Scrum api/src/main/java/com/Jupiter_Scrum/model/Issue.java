@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "Issues") // Correct table name to match entity name
+@Table(name = "Issues") // Ensure this matches your actual table name
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -24,11 +24,13 @@ public class Issue {
     private String assignee;
     private String labels;
     private String parent;
-    private String team;
     private String sprint;
     private Integer storyPointEstimate;
     private String reporter;
-    private String attachment;
+
+    @Lob
+    private byte[] attachment;
+
     private String linkedIssues;
     private Long user_id;
 }

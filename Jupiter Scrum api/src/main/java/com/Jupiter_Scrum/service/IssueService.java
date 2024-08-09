@@ -26,6 +26,10 @@ public class IssueService {
         return issueRepository.save(issue);
     }
 
+    public List<Issue> getIssuesByType(String issueType) {
+        return issueRepository.findByIssueType(issueType);
+    }
+
     public Optional<Issue> updateIssue(Long id, Issue issue) {
         if (issueRepository.existsById(id)) {
             issue.setId(id);
